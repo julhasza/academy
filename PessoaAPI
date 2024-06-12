@@ -1,0 +1,39 @@
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.List;
+
+    public class PessoaAPI{
+        public static void main(String[] args) throws IOException, SQLException{
+            Connection connection = Driver.Manager.getConnection("jdbc:mysql://localhost:3306/nome_do_banco", "julia", "admin24022006");
+            Pessoa DAO pessoaDAO = new PessoaDAO(connection);
+            
+    //Utilização da API
+    List<Pessoa> pessoas = pessoaDAO.listarPessoas()
+    for (Pessoa pessoa : pessoas) {
+        System.out.println("ID: " + pessoa.getId() + " ,Nome: " + pessoa.getNome() + " ,DataNascimento: " + pessoa.getDataNasimento() + " , Idade: " + pessoa.getIdade() + " ,CPF: " + pessoa.getCpf() + " ,Email: " + pessoa.getEmail() + " ,Telefone: " + pessoa.getTelefone() + " ,Gênero: " + pessoa.getGenero());
+    }
+        Pessoa novaPessoa = new Pessoa(){
+            novaPessoa.setNome(" ");
+            novaPessoa.setDataNascimento(" ");
+            novaPessoa.setIdade(" ");
+            novaPessoa.setCpf(" ");
+            novaPessoa.setEmail(" ");
+            novaPessoa.setTelefone(" ");
+            novaPessoa.setGenero(" ");
+            pessoaDAO.adicionarPessoa(novaPessoa);
+            
+        Pessoa pessoaParaAtualizar = pesooa.get(0);
+        pessoasParaAtualizar.setNome("Novo Nome");
+        pessoaDAO.atualizarPessoa(pessoaParaAtualizar);
+        
+        int IdPessoaParaDeletar = 1; //Caso queira deletar a pessoa com o id
+        pessoaDAO.deletarPessoa(idPessoaParaDeletar);
+        
+        connection.close();
+            
+        }
+      }
+    }
+   
