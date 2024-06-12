@@ -1,0 +1,61 @@
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+    public class PessoaDAO{
+    
+        private Connection connection;
+    
+        public PessoaDAO(Connection connection){
+            this.connection = connection;
+    }
+    
+    public void criarPessoa(Pessoa pessoa) throws SQLException{
+        String sql = "INSERT INTO pessoas (nome, dataNascimento, idade, cpf, email, telefone, genero VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setString(1, pessoa.getNome());
+            statement.setLocalDate(2, pessoa.getDataNascimento());
+            statement.setInt(3, pessoa.getIdade());
+            statement.setString(4, pessoa.getCpf());
+            statement.setString(5, pessoa.getEmail());
+            statement.setString(6, pessoa.getTelefone());
+            statement.setString(7, pessoa.getGenero());
+            statement.executeUpdate();
+        }
+    }
+    public List<Pessoa> listarPessoas() throws SQLException{
+        List<Pessoa> pessoas = new ArrayList<>();
+        String sql = "SELECT * FROM pessoas";
+        try (Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql));{
+          while (resultSet.next()){
+              Pessoa pessoa = new Pessoa();
+              pessoa.setId(resultSet.getInt("id"));
+              pessoa.setNome(resultSet.getString("nome"));
+              pessoa.setDataNascimento(resultSet.getLocalDate("dataNascimento"));
+              pessoa.setIdade(resultSet.getInt("idade"));
+              pessoa.setCpf(resultSet.getString("cpf"));
+              pessoa.setEmail(resultSet.getString("email"));
+              pessoa.setTelefone(resultSet.getString("telefone"));
+              pessoa.setGenero(resultSet.getString("genero"));
+              pessoas.add(pessoa);
+          }
+       }
+            return pessoas;
+     }
+    
+    public void atualizarPessoa(Pessoa pessoa) throws SQLException{
+        String sql = "UPDATE pessoa SET nome = ?, dataNascimento = ?, idade = ?, cpf = ?, email = ?, telefone = ?, genero = ? WHERE id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setInt(1, id);
+            statement.executeUpdate();
+        }
+    }
+    public void deletarPessoa(int id) throws SQLException{
+        String sql = "DELETE FROM pessoa WHERE id = ? ";
+        try (PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setInt(1, id);
+            statement.executeUpdate();
+        }
+    }
+}
