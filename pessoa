@@ -6,18 +6,15 @@ public class Pessoa {
     private LocalDate dataNascimento;
     private int idade;
     private String cpf;
-    private String email;
-    private String telefone;
     private String genero;
     
+    
     //Construtor
-    public Pessoa(String nome, LocalDate dataNascimento, int idade, String cpf, String email, String telefone, String genero){
+    public Pessoa(String nome, LocalDate dataNascimento, int idade, String cpf){
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.idade = idade;
         this.cpf = cpf;
-        this.email = email;
-        this.telefone = telefone;
         this.genero = genero;
 }
     //Get & Set´s
@@ -45,22 +42,39 @@ public class Pessoa {
     public void setCpf(){
         this.cpf = cpf;
     }
-    public String getEmail(){
-        return email;
-    }
-    public void setEmail(){
-        this.email = email;
-    }
-    public String getTelefone(){
-        return telefone;
-    }
-    public void setTelefone(){
-        this.telefone = telefone;
-    }
     public String getGenero(){
         return genero;
     }
     public void setGenero(){
         this.genero = genero;
+    }
+}
+
+    public class Aluno extends Pessoa{
+        private String telefone, genero;
+        
+        public Aluno(String nome, LocalDate dataNascimento, int idade, String cpf, String telefone, String genero){
+            super(nome, dataNascimento, idade, cpf);
+            this.telefone = telefone;
+        }
+        
+        //get's & set's
+        public String getTelefone(){
+        return telefone;
+     }
+        public void setTelefone(){
+        this.telefone = telefone;
+    }
+        
+        
+    public class Professor extends Pessoa{
+        private String anosExperiencia, email;
+
+        public Professor(String nome, LocalDate dataNascimento, int idade, String cpf, String telefone, String genero, String anosExperiencia, String email) {
+            super(nome, dataNascimento, idade, cpf);
+            this.anosExperiencia = anosExperiencia;
+            this.email = email;
+            
+        }
     }
 }
