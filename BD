@@ -1,0 +1,24 @@
+CREATE TABLE IF NOT EXISTS pessoa (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100),
+    data_nascimento DATE,
+    idade INT,
+    cpf VARCHAR(11),
+    genero CHAR(1)
+);
+
+CREATE TABLE IF NOT EXISTS aluno (
+    id INT,
+    telefone VARCHAR(15),
+    PRIMARY KEY (id),
+    FOREIGN KEY (id) REFERENCES pessoa(id)
+);
+
+CREATE TABLE IF NOT EXISTS professor (
+    id INT,
+    anos_experiencia INT,
+    email VARCHAR(100),
+    PRIMARY KEY (id),
+    FOREIGN KEY (id) REFERENCES pessoa(id)
+);
+
