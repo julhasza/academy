@@ -22,3 +22,43 @@ CREATE TABLE IF NOT EXISTS professor (
     FOREIGN KEY (id) REFERENCES pessoa(id)
 );
 
+-- Inserir na tabela pessoa
+INSERT INTO pessoa (nome, data_nascimento, idade, cpf, genero) VALUES ('João Silva', '1990-05-12', 34, '12345678901', 'M');
+
+-- Inserir na tabela aluno
+INSERT INTO aluno (id, telefone) VALUES (LAST_INSERT_ID(), '99999-9999');
+
+-- Inserir na tabela professor
+INSERT INTO pessoa (nome, data_nascimento, idade, cpf, genero) VALUES ('Maria Souza', '1985-08-22', 38, '10987654321', 'F');
+INSERT INTO professor (id, anos_experiencia, email) VALUES (LAST_INSERT_ID(), 10, 'maria.souza@exemplo.com');
+
+-- Consultar todos os alunos
+SELECT p.*, a.telefone
+FROM pessoa p
+JOIN aluno a ON p.id = a.id;
+
+-- Consultar todos os professores
+SELECT p.*, pr.anos_experiencia, pr.email
+FROM pessoa p
+JOIN professor pr ON p.id = pr.id;
+
+-- Atualizar dados de um aluno
+UPDATE pessoa p
+JOIN aluno a ON p.id = a.id
+SET p.nome = 'João Pereira', a.telefone = '88888-8888'
+WHERE p.id = 1;
+
+-- Atualizar dados de um professor
+UPDATE pessoa p
+JOIN professor pr ON p.id = pr.id
+SET p.nome = 'Maria Oliveira', pr.email = 'maria.oliveira@exemplo.com'
+WHERE p.id = 2;
+
+-- Excluir um aluno
+DELETE FROM aluno WHERE id = 1;
+DELETE FROM pessoa WHERE id = 1;
+
+-- Excluir um professor
+DELETE FROM professor WHERE id = 2;
+DELETE FROM pessoa WHERE id = 2;
+
