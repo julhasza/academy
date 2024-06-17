@@ -51,9 +51,34 @@ public class Alterar_Aluno_DAO{
             ResultSet resultado = comando_sql.executeQuery();
             if (resultado.next()){
                 Aluno[0] = resultado.getString(1) ;
-                Aluno[1] = ;
-                Aluno[2] = ;
-                Aluno[3] = ;
+                Aluno[1] = tratamento_data_DIA(resultado.getString(2));
+                Aluno[2] = tratamento_data_MES(resultado.getString(2));
+                Aluno[3] = tratamento_data_ANO(resultado.getString(2));
                 Aluno[4] = resultado.setString(3);
                 Aluno[5] = resultado.setFloat(4);
+     }
+	return Aluno;
+}
+
+	private String tratamento_data_DIA(String Data_Nasc){
+		String aux="";
+		for(int i=8; i<10; i++){
+			aux += Data_Nasci.charAt(i);
+         }
+         return aux;
+}
+
+	private String tratamento_data_MES(String Data_Nasc){
+		String aux="";
+		for(int i=5; i<7; i++){
+			aux += Data_Nasci.charAt(i);
+         }
+	 return aux;
+}
+	private String tratamento_data_ANO(String Data_Nasc){
+		String aux="";
+		for(int i=0; i<4; i++){
+			aux += Data_Nasci.charAt(i);
+         }
+	 return aux;
 }
