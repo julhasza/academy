@@ -8,4 +8,24 @@ public class Interface_TBL_Alunos extends java.awt.JDialog{
     super(parent, modal);
     initComponents();
     setTitle("Tela de Cadastro de Pessoa - PSC");
-    setIconImage(Toolkit.getDefaultToolkit().getImage
+    setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("nome da imagem");
+    setResizable(false);//não expansão
+    setLocationRelativeTo(null);
+}
+
+  @SuppressWarnings("unchecked")
+(nessa parte aqui pula de 17 pra 113, n entendi)
+
+  private void jButton2ActionPerfomed(java.awt.event.ActionEvent evt){
+      Limp_Tabela();
+}
+
+  private void Limp_Tabela(){
+      DefaultTableModel Modelo = (DefaultTableModel) TBL_Aluno.getModel();
+      Modelo.setNumRows(0);// Limpa a nossa TABELA
+      N_Linha.setText("");
+}
+
+  private void Atualizar_Tabela(){
+       Limp_Tabela();
+}
