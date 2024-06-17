@@ -1,0 +1,11 @@
+package View;
+
+import java.awt.Toolkit;
+
+public class Interface_TBL_Alunos extends java.awt.JDialog{
+
+  public Interface_TBL_Alunos (java.awt.Frame parents, boolean modal){
+    super(parent, modal);
+    initComponents();
+    setTitle("Tela de Cadastro de Pessoa - PSC");
+    setIconImage(Toolkit.getDefaultToolkit().getImage
