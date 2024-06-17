@@ -18,7 +18,7 @@ public class Cadastrar_Aluno_DAO{
         comando_sql.setFloat(1, A.getMensalidade));
         comando_sql.setInt(2, ID_Pessoa);
         comando_sql.execute();
-        comando)sql.close();
+        comando_sql.close();
         conexao.close();
 
 
