@@ -48,5 +48,65 @@ on tbl_aluno.Id_Pessoa = tbl_Pessoa.Id_Pessoa;
 SELECT Mensalidade,
 	(SELECT Nome FROM tbl_Pessoa WHERE tbl_pessoa = tbl_Aluno.Id_Pessoa),
     (SELECT CPF FROM tbl_Pessoa.Id_Pessoa = tbl_Aluno.Id_Pessoa),
-    (SELECT Data Nasc FROM tbl_Pessoa WHERE tbl_Pessoa.Id_Pessoa = tbl_Aluno.
+    (SELECT Data Nasc FROM tbl_Pessoa WHERE tbl_Pessoa.Id_Pessoa = tbl_Aluno,
+drop database db_SistemCadastro_Aula;
+create database if not exists db_SistemCadastro_Aula;
+use db_SistemCadastro_Aula;
+
+create table tbl_CadastroLogin(
+	Id_Login smallint primary key auto_increment,
+	Login varchar(20) not null unique,
+	Senha varchar(20) not null
+);
+
+CREATE TABLE IF NOT EXISTS tbl_Pessoa(
+	ID_Pessoa smallint primary key auto_increment,
+	Nome varchar(70) not null,
+	CPF char(11) not null unique,
+	Data_Nasc date not null
+);
+
+CREATE TABLE IF NOT EXISTS tbl_Aluno(
+	ID_Aluno smallint primary key auto_increment,
+    Mensalidade decimal(7,2) not null,
+    Id_Pessoa smallint not null unique #unique, nesse caso, garante 1:1
+);
+alter table tbl_Aluno add constraint fk_ID_Pes_Alu
+foreign key (ID_Pessoa) references tbl_Pessoa(ID_Pessoa);
+
+CREATE TABLE IF NOT EXISTS tbl_Professor(
+	ID_Professor smallint primary key auto_increment,
+    Titularidade varchar(20) not null,
+    Valor_HT decimal(5,2) not null,
+    Quant_HT decimal(5,2) not null,
+    Salario DECIMAL(7,2) NOT NULL DEFAULT 0,
+    Id_Pessoa smallint not null
+);
+alter table tbl_professor add constraint fk_ID_Pes_pro
+foreign key (ID_Pessoa) references tbl_Pessoa(ID_Pessoa);
+*/
+select * from tbl_CadastroLogin;
+select * from tbl_Pessoa;
+select * from tbl_Aluno;
+
+select Id_Pessoa from tbl_Pessoa where CPF = ?;
+
+select
+	tbl_Pessoa.Nome, tbl_Pessoa.CPF, tbl_Pessoa.Data_Nasc,
+    tbl_aluno.mensalidade
+from tbl_aluno
+inner join tbl_Pessoa
+on tbl_aluno.Id_Pessoa = tbl_Pessoa.Id_Pessoa;
+
+SELECT Mensalidade,
+	(SELECT Nome FROM tbl_Pessoa WHERE tbl_pessoa = tbl_Aluno.Id_Pessoa),
+    (SELECT CPF FROM tbl_Pessoa.Id_Pessoa = tbl_Aluno.Id_Pessoa),
+    (SELECT Data Nasc FROM tbl_Pessoa WHERE tbl_Pessoa.Id_Pessoa = tbl_Aluno.Id_Pessoa),
+FROM tbl_Aluno;
+
+delete from tbl_pessoa where CPF = '';
+
+select
+	tbl_Pessoa.Nome, tbl_Pessoa.CPF, tbl_Pessoa.Data_Nasc,
+    tbl_Aluno.Mensalidade
 
