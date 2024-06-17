@@ -1,0 +1,56 @@
+package Controller.DAO; 
+
+import Conexao_BD.ConnectionFactory;
+import Model.Pessoa;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.ResultSet;
+
+public class Pegar_Id_Pessoa{
+    private Connection conexao;
+
+    public Pessoa Pegar_Pessoa (String CPF) throws SQLException{
+    conexao = (Connection) new ConnectionFactory().getConnection();
+    PreparedStatement comando_sql = null;
+
+    comando_sql = conexao.prepareStatement(""
+            + "SELECT * FROM tbl_Pessoa WHERE CPF = ?");
+    comando_sql.setString(1, CPF);
+    ResultSet resultado = comando_sql.executeQuery();
+    if(resultado.next()){
+        String Nome = resultado.getString("Nome");
+        String CPF_p = resultado.getString("CPF");
+        Date D_Nasc = resultado.getDate("Data_Nasc");
+        String data_niver;
+        Calendar calendario = Calendar.getInstance();
+        calendario.setTime(D_Nasc);
+        data_niver = calendario.get(Calendar.DAY_OF_MONTH) + 1) + "/" + calendario.get(Calendar.MONTH) + 1) + "/" + calendario.get(Calendar.YEAR);
+        Pessoa P = new Pessoa(Nome, data_niver, CPF_p);
+        comando_sql.close();
+        conexao.close();
+        return P;
+}
+    comando_sql.close();
+    conexao.close();
+    return null;
+    }
+
+    public int Pegar_ID_Pessoa (String CPF) throws SQLException{
+    conexao = (Connection) new ConnectionFactory().getConnection();
+    PreparedStatement comando_sql = null;
+    int ID_Pessoa = 0;
+    comando_sql = conexao.prepareStatement(""
+            + "SELECT Id_Pessoa FROM tbl_Pessoa WHERE CPF = ?");
+    comando_sql.setString(1, CPF);
+    ResultSet resultado = comando_sql.executeQuery();
+    if(resultado.next()){
+        ID_Pessoa = resultado.getInt("ID_Pessoa");
+        comando_sql.close();
+        conexao.close();
+        return ID_Pessoa;
+    }
+    comando_sql.close();
+    conexao.close();
+    return ID_Pessoa;
+}
