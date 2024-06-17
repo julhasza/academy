@@ -20,6 +20,28 @@ public class Interface_TBL_Alunos extends java.awt.JDialog{
       Limp_Tabela();
 }
 
+  private void jButton1ActionPerfomed(java.awt.event.ActionEvent evt){
+       try{
+          Atualizar_Tabela();
+        } catch (SQLException | ParseException ex) {
+            Logger.getLogger(Interface_TBL_Alunos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+}
+
+  private void TBL_AlunosMouseClicked(java.awt.event.MouseEvent evt){
+          int Linha = TBL_Alunos.getSelectedRow();
+          N_Linha.setText(""+(Linha + 1));
+}
+  private void Bt_RemoverAluno_BD(java.awt.event.ActionEvent evt) {
+      String CPF_Remover = Pegar_CPF_Tabela();
+}
+
+private String Pegar_CPF_Tabela(){
+    DefaultTableModel Modelo = (DefaultTableModel) TBL_Aluno.getModel();
+    int Linha = integer.parseInt(N_Linha.getText())-1;
+    return ((String) Modelo.getValueAt(Linha, 1));
+}
+
   private void Limp_Tabela(){
       DefaultTableModel Modelo = (DefaultTableModel) TBL_Aluno.getModel();
       Modelo.setNumRows(0);// Limpa a nossa TABELA
@@ -35,3 +57,4 @@ public class Interface_TBL_Alunos extends java.awt.JDialog{
           Modelo.addRow((Object[]) Tab_Alunos.get(i))
    }
 }
+   
