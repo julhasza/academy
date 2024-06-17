@@ -1,0 +1,26 @@
+package Controller_DAO;
+
+public class Alterar_Aluno_DAO{
+    private Connection conexao;
+
+    public void AlterarDados_Aluno(Aluno A) throws SQLException{
+        conexao = (Connection) new ConnectionFactory().getConnection();
+        PreparedStatement comando_sql = null;
+
+        comando_sql = conexao.prepareStatement(""
+             + "UPDATE tbl_Pessoa SET Nome = ?, Data_Nasc = ? WHERE CPF = ?");
+        comando_sql.setString(1, A.getNome());
+        comando_sql.setString(2, A.getData_Nasc());
+        comando_sql.setString(3, IA.getCPF());
+        comando_sql.execute();
+        comando_sql.close();
+        conexao.close();
+
+        comando_sql = conexao.prepareStatement(""
+             + "UPDATE tbl_Aluno SET Mensalidade = ? WHERE ID_Pessoa = ?");
+        comando_sql.setFloat(1, A.getMensalidade());
+        comando_sql.setInt(2, A.getCPF());
+        comando_sql.execute();
+        comando_sql.close();
+        conexao.close();
+    }
