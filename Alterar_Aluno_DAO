@@ -1,9 +1,17 @@
 package Controller_DAO;
 
+import Conexao_BD.ConnectionFactory;
+import Model.Aluno;
+import java.sql.Connection;
+import java.sql.PreparedStatement
+import java.sql.Exception;
+import java.text.ParseException;
+import java.sql.ResultSet;
+
 public class Alterar_Aluno_DAO{
     private Connection conexao;
 
-    public void AlterarDados_Aluno(Aluno A) throws SQLException{
+    public boolean AlterarDados_Aluno(Aluno A) throws SQLException{
         conexao = (Connection) new ConnectionFactory().getConnection();
         PreparedStatement comando_sql = null;
 
@@ -15,13 +23,37 @@ public class Alterar_Aluno_DAO{
         comando_sql.execute();
 
         Pegar_ID_Pessoa_DAO pegar_id = new Pegar_ID_Pessoa_DAO();
-
-
+        int ID_Pessoa_alu = pegar_id.Pegar_ID_Pessoa(A.getCPF));
         comando_sql = conexao.prepareStatement(""
              + "UPDATE tbl_Aluno SET Mensalidade = ? WHERE ID_Pessoa = ?");
         comando_sql.setFloat(1, A.getMensalidade());
-        comando_sql.setInt(2, A.getCPF());
+        comando_sql.setInt(2, ID_Pessoa_alu);
         comando_sql.execute();
         comando_sql.close();
         conexao.close();
+        return true;
     }
+
+        public Object[] Pegar_UM_Aluno_BD(String CPF){
+            Object[] Aluno = new Object [6];
+            conexao = (Connection) new ConnectionFactory().getConnection();
+            PreparedStatement comando_sql = null;
+
+            comando_sql = conexao.prepareStatement("""
+                                select
+	                                tbl_Pessoa.Nome, tbl_Pessoa.CPF, tbl_Pessoa.Data_Nasc,
+                                    tbl_aluno.mensalidade
+                                    from tbl_aluno
+                                    inner join tbl_Pessoa
+                                    on tbl_aluno.Id_Pessoa = tbl_Pessoa.Id_Pessoa
+                                    where tbl_Pessoa.CPF= ?;""");
+            comando_sql.setString(1, CPF);
+            ResultSet resultado = comando_sql.executeQuery();
+            if (resultado.next()){
+                Aluno[0] = resultado.getString(1) ;
+                Aluno[1] = ;
+                Aluno[2] = ;
+                Aluno[3] = ;
+                Aluno[4] = resultado.setString(3);
+                Aluno[5] = resultado.setFloat(4);
+}
