@@ -28,4 +28,10 @@ public class Interface_TBL_Alunos extends java.awt.JDialog{
 
   private void Atualizar_Tabela(){
        Limp_Tabela();
+       Pegar_Alunos_DAO Pegar_Alunos = new Pegar_Alunos_DAO();
+       ArrayList<Object> Tab_Alunos  Pegar.Alunos.Pegar.AlunoS();
+       DefaultTableModel Modelo = (DefaultTableModel) TBL_Aluno.getModel();
+      for(int i=0; i<Tab_Alunos.size(); i++){
+          Modelo.addRow((Object[]) Tab_Alunos.get(i))
+   }
 }
