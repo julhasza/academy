@@ -13,8 +13,9 @@ public class Alterar_Aluno_DAO{
         comando_sql.setString(2, A.getData_Nasc());
         comando_sql.setString(3, IA.getCPF());
         comando_sql.execute();
-        comando_sql.close();
-        conexao.close();
+
+        Pegar_ID_Pessoa_DAO pegar_id = new Pegar_ID_Pessoa_DAO();
+
 
         comando_sql = conexao.prepareStatement(""
              + "UPDATE tbl_Aluno SET Mensalidade = ? WHERE ID_Pessoa = ?");
