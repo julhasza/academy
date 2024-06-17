@@ -1,0 +1,30 @@
+package Controller_DAO
+
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Date;
+
+public class Pegar_Alunos_DAO{
+  private Connection conexao;
+
+  public ArrayList<Object> Pegar_AlunoS(String CPF) throws SQLException, ParseException{
+      conexao = (Connection) new ConnectionFactory().getConnection()
+      PreparedStatement comando_sql = null;
+      ArrayList<Object> Tab_Alunos = new ArrayList<>();
+
+  comando_sql = conexao.prepareStatement("""
+           select
+	            tbl_Pessoa.Nome, tbl_Pessoa.CPF, tbl_Pessoa.Data_Nasc,
+              tbl_aluno.mensalidade
+            from tbl_aluno
+            inner join tbl_Pessoa
+            on tbl_aluno.Id_Pessoa = tbl_Pessoa.Id_Pessoa;""");
+  ResultSet resultado = comando_sql.executeQuery();
+  while(resultado.next()){
+      Object[] Aluno = new Object[4];
+      Aluno[0] = resultado.getString(1);
+      Aluno[1] = resultado.getString(2);
+      Aluno[2] = resultado.getString(3);
+      Aluno[3] = resultado.getString(4);
+}
