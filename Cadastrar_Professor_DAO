@@ -1,0 +1,26 @@
+package Controller_DAO
+
+import Conexao_BD.ConnectionFactory;
+import Model.Professor;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException; 
+
+public class Cadastrar_Professor_DAO{
+    private Connection conexao;
+
+    public void Adicionar_Professor(Professor P, int ID_Pessoa) throws SQLException{
+        conexao = (Connection) new ConnectionFactory().getConnection();
+        PreparedStatement_comando_sql = null;
+
+        comando_sql = conexao.prepareStatement(""
+            + "INSERT INTO tbl_Aluno (Mensalidade, ID_Pessoa) VALUES (?, ?)");
+        comando_sql.setFloat(1, A.getMensalidade));
+        comando_sql.setInt(2, ID_Pessoa);
+        comando_sql.execute();
+        comando_sql.close();
+        conexao.close();
+
+
+
+}
