@@ -1,9 +1,13 @@
 package Controller_DAO
 
+import Conexao_BD.ConnectionFactory;
+import Controller.Calcular_Idade;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.ArrayList;
 
 public class Pegar_Alunos_DAO{
   private Connection conexao;
@@ -25,6 +29,11 @@ public class Pegar_Alunos_DAO{
       Object[] Aluno = new Object[4];
       Aluno[0] = resultado.getString(1);
       Aluno[1] = resultado.getString(2);
-      Aluno[2] = resultado.getString(3);
-      Aluno[3] = resultado.getString(4);
+      Aluno[2] = new Calcular_Idade().Calcular_Idade(resultado.getDate(3));
+      Aluno[3] = resultado.getFloat(4);
+      Tab_Alunos.add(Aluno);
+   }
+   comando_sql.close();
+   conexao.close();
+   return Tab_Alunos;
 }
