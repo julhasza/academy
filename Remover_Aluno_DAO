@@ -1,0 +1,38 @@
+package Controller_DAO;
+
+import Conexao_BD.ConnectionFactory;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.text.ParseException;
+
+public class Remover_Aluno_DAO{
+  private Connection conexao;
+
+  public void Remover_Aluno(String CPF) throws SQLException{
+    conexao = (Connection) new ConnectionFactory().getConnection();
+    PreparedStatement comando_sql = null;
+
+    Pegar_ID_Pessoa_DAO Pegar_ID = new Pegar_ID_Pessoa_DAO();
+    int ID_Remocao = Pegar_ID.Pegar_ID_Pessoa(CPF);
+
+    comando_sql = conexao.prepareStatement(""
+             + "DELETE FROM tbl_Aluno WHERE ID_Pessoa = ?");
+    comando_sql.setInt(1, ID_Remocao());
+    comando_sql.execute();
+    comando_sql.close();
+    conexao.close();
+    }
+
+  public void Remover_Pessoa(String CPF) throws SQLException{
+    conexao = (Connection) new ConnectionFactory().getConnection();
+    PreparedStatement comando_sql = null;
+    
+    comando_sql = conexao.prepareStatement(""
+             + "DELETE FROM tbl_Pessoa WHERE CPF = ?");
+    comando_sql.setString(1, CPF);
+    comando_sql.execute();
+    comando_sql.close();
+    conexao.close();
+    }
+    
