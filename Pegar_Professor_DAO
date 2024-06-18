@@ -1,0 +1,39 @@
+package Controller_DAO
+
+import Conexao_BD.ConnectionFactory;
+import Controller.Calcular_Idade;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.ArrayList;
+
+public class Pegar_Professor_DAO{
+  private Connection conexao;
+
+  public ArrayList<Object> Pegar_Professor(String CPF) throws SQLException, ParseException{
+      conexao = (Connection) new ConnectionFactory().getConnection()
+      PreparedStatement comando_sql = null;
+      ArrayList<Object> Tab_Professor = new ArrayList<>();
+
+  comando_sql = conexao.prepareStatement("""
+           select
+	            tbl_Pessoa.Nome, tbl_Pessoa.CPF, tbl_Pessoa.Data_Nasc,
+              tbl_professor.salario
+            from tbl_professor
+            inner join tbl_Pessoa
+            on tbl_aluno.Id_Pessoa = tbl_Pessoa.Id_Pessoa;""");
+  ResultSet resultado = comando_sql.executeQuery();
+  while(resultado.next()){
+      Object[] Aluno = new Object[4];
+      Professor[0] = resultado.getString(1);
+      Professor[1] = resultado.getString(2);
+      Professor[2] = new Calcular_Idade().Calcular_Idade(resultado.getDate(3));
+      Professor[3] = resultado.getFloat(4);
+      Tab_Professor.add(Professor);
+   }
+   comando_sql.close();
+   conexao.close();
+   return Tab_Professor;
+}
