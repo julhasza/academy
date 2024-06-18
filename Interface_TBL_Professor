@@ -1,0 +1,59 @@
+package View;
+
+import java.awt.Toolkit;
+
+public class Interface_TBL_Professor extends java.awt.JDialog{
+
+  public Interface_TBL_Professor (java.awt.Frame parents, boolean modal){
+    super(parent, modal);
+    initComponents();
+    setTitle("Tela de Cadastro de Pessoa - PSC");
+    setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("nome da imagem");
+    setResizable(false);//não expansão
+    setLocationRelativeTo(null);
+}
+
+  @SuppressWarnings("unchecked")
+(nessa parte aqui pula de 17 pra 113, n entendi)
+
+  private void jButton2ActionPerfomed(java.awt.event.ActionEvent evt){
+      Limp_Tabela();
+}
+
+  private void jButton1ActionPerfomed(java.awt.event.ActionEvent evt){
+       try{
+          Atualizar_Tabela();
+        } catch (SQLException | ParseException ex) {
+            Logger.getLogger(Interface_TBL_Professor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+}
+
+  private void TBL_ProfessorMouseClicked(java.awt.event.MouseEvent evt){
+          int Linha = TBL_Professor.getSelectedRow();
+          N_Linha.setText(""+(Linha + 1));
+}
+  private void Bt_RemoverProfessor_BD(java.awt.event.ActionEvent evt) {
+      String CPF_Remover = Pegar_CPF_Tabela();
+}
+
+private String Pegar_CPF_Tabela(){
+    DefaultTableModel Modelo = (DefaultTableModel) TBL_Professor.getModel();
+    int Linha = integer.parseInt(N_Linha.getText())-1;
+    return ((String) Modelo.getValueAt(Linha, 1));
+}
+
+  private void Limp_Tabela(){
+      DefaultTableModel Modelo = (DefaultTableModel) TBL_Professor.getModel();
+      Modelo.setNumRows(0);// Limpa a nossa TABELA
+      N_Linha.setText("");
+}
+
+  private void Atualizar_Tabela(){
+       Limp_Tabela();
+       Pegar_Professor_DAO Pegar_Professor = new Pegar_Professor_DAO();
+       ArrayList<Object> Tab_Professor  Pegar.Professor.Pegar.Professor();
+       DefaultTableModel Modelo = (DefaultTableModel) TBL_Professor.getModel();
+      for(int i=0; i<Tab_Professor.size(); i++){
+          Modelo.addRow((Object[]) Tab_Professor.get(i))
+   }
+}
