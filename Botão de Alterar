@@ -1,0 +1,45 @@
+try { 
+						Gerente gerente = new Gerente(nome.getText(), data, cpf.getText(), rg.getText(), atuacao.getText(), senha.getText()); //Criação de objeto da classe Gerente
+						int IDEmpresa = 0; 
+						Class.forName("com.mysql.cj.jdbc.Driver");
+						Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_sistema", "root", "pepedrodro"); //Conexão com o banco de dados
+						Statement definirId = con.createStatement();
+						String query = "SELECT MAX(ID_Empresa) FROM tbl_funcionarios"; //Query para receber o valor máximo de ID_Empresa presente no banco de dados
+						ResultSet valorId = definirId.executeQuery(query);
+						while(valorId.next()) {
+							IDEmpresa = valorId.getInt("MAX(ID_Empresa)");
+						}
+						gerente.setID(IDEmpresa + 1); //Atribuição de ID_Empresa ao funcionário 
+						int[] dataNascArray = gerente.getData_nascimento();
+						String dataNasc1 = String.valueOf(dataNascArray[2]);
+						String dataNasc2 = String.valueOf(dataNascArray[1]);
+						String dataNasc3 = String.valueOf(dataNascArray[0]);
+						String dataNasc = dataNasc1+"-"+dataNasc2+"-"+dataNasc3; //Formatação correta da data de nascimento para inserção no banco de dados
+						String query1 = "INSERT INTO tbl_funcionarios (Nome, Data_nascimento, Idade, CPF, RG, Area_atuacao, "
+								+ "Permissao_nivel1, Permissao_nivel2, Permissao_nivel3, Salario, ID_Empresa, Senha,"
+								+ " Nome_gerente, Nome_supervisor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, '', '')"; //Query para inserir nova linha no banco de dados
+						PreparedStatement criarGerente = con.prepareStatement(query1);
+						criarGerente.setString(1, gerente.getNome()); //Utilização dos atributos do objeto gerente para inserção no banco de dados
+						criarGerente.setString(2, dataNasc);
+						criarGerente.setInt(3, gerente.getIdade());
+						criarGerente.setString(4, gerente.getCPF());
+						criarGerente.setString(5, gerente.getRG());
+						criarGerente.setString(6, gerente.getAreaDeAtuacao());
+						criarGerente.setInt(7, 1);
+						criarGerente.setInt(8, 1);
+						criarGerente.setInt(9, 1);
+						criarGerente.setDouble(10, gerente.getSalario());
+						criarGerente.setInt(11, gerente.getID());
+						criarGerente.setString(12, gerente.getSenha());
+						criarGerente.executeUpdate();
+						JOptionPane.showMessageDialog(panel, "Gerente inserido.", "Swing Tester", JOptionPane.INFORMATION_MESSAGE);
+						con.close();
+						definirId.close();
+						valorId.close();
+						criarGerente.close();
+					} catch(SQLException a){
+						System.out.println("Error");
+					
+					}catch(Exception a){
+					
+					}
