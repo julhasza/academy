@@ -1,0 +1,84 @@
+package Controller_DAO;
+
+import Conexao_BD.ConnectionFactory;
+import Model.Professor;
+import java.sql.Connection;
+import java.sql.PreparedStatement
+import java.sql.Exception;
+import java.text.ParseException;
+import java.sql.ResultSet;
+
+public class Alterar_Professor_DAO{
+    private Connection conexao;
+
+    public boolean AlterarDados_Professor(Professor P) throws SQLException{
+        conexao = (Connection) new ConnectionFactory().getConnection();
+        PreparedStatement comando_sql = null;
+
+        comando_sql = conexao.prepareStatement(""
+             + "UPDATE tbl_Pessoa SET Nome = ?, Data_Nasc = ? WHERE CPF = ?");
+        comando_sql.setString(1, A.getNome());
+        comando_sql.setString(2, A.getData_Nasc());
+        comando_sql.setString(3, IA.getCPF());
+        comando_sql.execute();
+
+        Pegar_ID_Pessoa_DAO pegar_id = new Pegar_ID_Pessoa_DAO();
+        int ID_Pessoa_prof = pegar_id.Pegar_ID_Pessoa(A.getCPF));
+        comando_sql = conexao.prepareStatement(""
+             + "UPDATE tbl_Professor SET Salario = ? WHERE ID_Pessoa = ?");
+        comando_sql.setFloat(1, A.getSalario());
+        comando_sql.setInt(2, ID_Pessoa_prof);
+        comando_sql.execute();
+        comando_sql.close();
+        conexao.close();
+        return true;
+    }
+
+        public Object[] Pegar_UM_Professor_BD(String CPF){
+            Object[] Professor = new Object [6];
+            conexao = (Connection) new ConnectionFactory().getConnection();
+            PreparedStatement comando_sql = null;
+
+            comando_sql = conexao.prepareStatement("""
+                                select
+	                                tbl_Pessoa.Nome, tbl_Pessoa.CPF, tbl_Pessoa.Data_Nasc,
+                                    tbl_professor.salario
+                                    from tbl_Professor
+                                    inner join tbl_Pessoa
+                                    on tbl_aluno.Id_Pessoa = tbl_Pessoa.Id_Pessoa
+                                    where tbl_Pessoa.CPF= ?;""");
+            comando_sql.setString(1, CPF);
+            ResultSet resultado = comando_sql.executeQuery();
+            if (resultado.next()){
+                Professor[0] = resultado.getString(1) ;
+                Professor[1] = tratamento_data_DIA(resultado.getString(2));
+                Professor[2] = tratamento_data_MES(resultado.getString(2));
+                Professor[3] = tratamento_data_ANO(resultado.getString(2));
+                Professor[4] = resultado.setString(3);
+                Professor[5] = resultado.setFloat(4);
+     }
+	return Professor;
+}
+
+	private String tratamento_data_DIA(String Data_Nasc){
+		String aux="";
+		for(int i=8; i<10; i++){
+			aux += Data_Nasci.charAt(i);
+         }
+         return aux;
+}
+
+	private String tratamento_data_MES(String Data_Nasc){
+		String aux="";
+		for(int i=5; i<7; i++){
+			aux += Data_Nasci.charAt(i);
+         }
+	 return aux;
+}
+	private String tratamento_data_ANO(String Data_Nasc){
+		String aux="";
+		for(int i=0; i<4; i++){
+			aux += Data_Nasci.charAt(i);
+         }
+	 return aux;
+}
