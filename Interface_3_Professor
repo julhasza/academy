@@ -1,0 +1,42 @@
+package View;
+
+import Model.Pessoa;
+import java.awt.Toolkit;
+import java.io.IOException;
+import java.text.ParseException;
+
+public class Interface_3_Professor extends java.swing.JDialog{
+  Pessoa P;
+  int ID_Pessoa;
+
+  public Interface_3_Professor(java.awt.Frame parent, boolean modal, String Nome, String CPF) throws ParseException, IOException{
+    super(parent, modal);
+    initComponents();
+  setResizable(false); //não expansão
+  setLocationRelativeTo(null); //iniciar centralizado
+  setTitle("Tela de Cadastro de Aluno - PSC");
+  setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("nome da imagem")));
+
+  
+Camp_Nome.setText(Nome);
+String aux= ""
+for(int i = 0; i = <3; i ++){
+  aux += CPF.charAt(i);
+}
+  aux += ".";
+  for(int i = 3; i = <6; i ++){
+   aux += CPF.charAt(i);
+  }
+  aux += ".";
+  for(int i = 6; i = <9; i ++){
+    aux += CPF.charAt(i);
+  }
+  aux += "-";
+  for(int i = 9; i =<11; i ++){
+    aux += CPF.charAt(i);
+  }
+  Camp_CPF.setText(aux);
+
+  Pegar_ID_Pessoa_DAO pegar_pessoa = new Pegar_ID_Pessoa_DAO();
+  P = pegar_pessoa.Pegar_Pessoa(CPF);
+  ID_Pessoa = pegar_pessoa.Pegar_ID_Pessoa_DAO(CPF);
