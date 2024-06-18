@@ -25,9 +25,6 @@ foreign key (ID_Pessoa) references tbl_Pessoa(ID_Pessoa);
 
 CREATE TABLE IF NOT EXISTS tbl_Professor(
 	ID_Professor smallint primary key auto_increment,
-    Titularidade varchar(20) not null,
-    Valor_HT decimal(5,2) not null,
-    Quant_HT decimal(5,2) not null,
     Salario DECIMAL(7,2) NOT NULL DEFAULT 0,
     Id_Pessoa smallint not null
 );
@@ -37,12 +34,13 @@ foreign key (ID_Pessoa) references tbl_Pessoa(ID_Pessoa);
 select * from tbl_CadastroLogin;
 select * from tbl_Pessoa;
 select * from tbl_Aluno;
+select * from tbl_Professor;
 
 select
 	tbl_Pessoa.Nome, tbl_Pessoa.CPF, tbl_Pessoa.Data_Nasc,
     tbl_aluno.mensalidade
 from tbl_aluno
-inner join tnl_Pessoa
+inner join tbl_Pessoa
 on tbl_aluno.Id_Pessoa = tbl_Pessoa.Id_Pessoa;
 
 SELECT Mensalidade,
@@ -52,6 +50,22 @@ SELECT Mensalidade,
 drop database db_SistemCadastro_Aula;
 create database if not exists db_SistemCadastro_Aula;
 use db_SistemCadastro_Aula;
+
+select
+	tbl_Pessoa.Nome, tbl_Pessoa.CPF, tbl_Pessoa.Data_Nasc,
+    tbl_aluno.mensalidade
+from tbl_aluno
+inner join tbl_Pessoa
+on tbl_aluno.Id_Pessoa = tbl_Pessoa.Id_Pessoa;
+
+SELECT Salario,
+	(SELECT Nome FROM tbl_Pessoa WHERE tbl_pessoa = tbl_Professor.Id_Pessoa),
+    (SELECT CPF FROM tbl_Pessoa.Id_Pessoa = tbl_Professor.Id_Pessoa),
+    (SELECT Data Nasc FROM tbl_Pessoa WHERE tbl_Pessoa.Id_Pessoa = tbl_Professor,
+drop database db_SistemCadastro_Aula;
+create database if not exists db_SistemCadastro_Aula;
+use db_SistemCadastro_Aula;
+
 
 create table tbl_CadastroLogin(
 	Id_Login smallint primary key auto_increment,
