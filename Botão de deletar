@@ -1,0 +1,18 @@
+try {
+					Class.forName("com.mysql.cj.jdbc.Driver");
+					Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_sistema", "root", "pepedrodro"); //Conexão com o banco de dados
+					String query = "DELETE FROM tbl_Funcionarios WHERE Nome = ? AND ID_empresa = ?"; //Query para remover do banco de dados a linha referente ao funcionário que possui os atributos dados
+					PreparedStatement desligamento = con.prepareStatement(query);
+					desligamento.setString(1, nome.getText());
+					desligamento.setInt(2, Integer.parseInt(id.getText()));
+					desligamento.executeUpdate(); //Execução, apagando os dados do funcionário desligado
+					JOptionPane.showMessageDialog(panel, "Funcionário demitido.", "Swing Tester", JOptionPane.INFORMATION_MESSAGE);
+					con.close(); 
+					desligamento.close();
+					dispose();
+				} catch(SQLException a){
+					System.out.println("Error");
+					
+				}catch(Exception a){
+					
+				}
